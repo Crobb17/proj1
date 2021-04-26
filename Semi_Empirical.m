@@ -1,4 +1,4 @@
-function [varagout] = Ptable(varagin)
+function [varagout] = ptable(varagin)
 
 Ptable = readtable("PeriodicTable.csv");
 
@@ -28,19 +28,19 @@ xlabel("Atomic Number")
 ylabel("Binding Energy per Nucleon")
 
 elseif nargin == 1
-    atomicNumber_2 = varagin_1;
+    atomicNumber_2 = varagin{1};
 %end
 
 massCalc_2 = massformula(round(Ptable.AtomicWeight (atomicNumber_2)), atomicNumber_2);
 atomInfo = Ptable(atomicNumber_2, :);
 
-varagout_1 = massCalc_2;
-varagout_2 = atomInfo;
+varagout{1} = massCalc_2;
+varagout{2} = atomInfo;
 
 elseif nargin == 2
     %
-    input_1 = varagin_1 ;
-    input_2 = varagin_2 ;
+    input_1 = varagin{1} ;
+    input_2 = varagin{2} ;
     
     if (class(input_1)=='double') & (class(input_1) == class(input_2))
         [isotope_mass, ~, isotope_bepn] = massoformula(input_2, input_1);
@@ -51,15 +51,15 @@ elseif nargin == 2
          sprintf("The inputted isotope is not stable with a mass of %0.1d MeV/c^2", isotope_mass)
      end
      
-     varagout_1 = isotope_mass ;
+     varagout{1} = isotope_mass ;
      
     elseif (class(input_1) == 'double' & (class(input_2) == 'string')
         SAX
-        [massCalc_3, ~, ~] = massformula (Ptable.AtomicWeight (input_1), input_1)
+        [~, ~, ~] = massformula (Ptable.AtomicWeight (input_1), input_1)
         columnNames = string(Ptable.Properties.VariableNames) ;
         
         if sum (contains(columnNames, input_2)) == 1
-            columnTitle = find(contains(columnNames, input_2) ==1
+            columnTitle = find(contains(columnNames, input_2) == 1;
             specificValue = Ptable(input1.colomnTitle);
         end
     else
@@ -67,7 +67,7 @@ elseif nargin == 2
     end
 end
 
-Function[mass, be, bepn] = massformula(A,z)
+function [mass, be, bepn] = massformula(A,Z)
 %calculates the mass of an atmoic nuclei
 %output units are MeV/c^2
 
